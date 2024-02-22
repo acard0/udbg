@@ -1150,7 +1150,7 @@ pub fn enum_udbg_thread<'a>(
 ) -> UDbgResult<Box<dyn Iterator<Item = Box<dyn UDbgThread>> + 'a>> {
     let mut info_iter = detail
         .then(system_process_information)
-        .transpose()?
+        .transpose().unwrap()
         .map(|spi| spi.flat_map(|iter| iter.threads().iter()));
 
     let mut cache: HashMap<u32, Box<SYSTEM_THREAD_INFORMATION>> = HashMap::new();
