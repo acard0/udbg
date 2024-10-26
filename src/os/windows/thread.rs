@@ -370,7 +370,16 @@ impl ThreadHandle {
     }
 
     pub fn get_wow64_context(&self, ctx: &mut ThreadContext32) -> windows::core::Result<()> {
-        unsafe { Wow64GetThreadContext(*self.0, ctx) }
+        #[cfg(target_pointer_width = "32")]
+        {
+            return Err(windows::core::Error::new(
+                windows::core::HRESULT(0x80004001u32 as i32), // E_NOTIMPL: "Not implemented"
+                "WOW64 context functions are not supported on 32-bit builds",
+            ));
+        }
+    
+        #[cfg(target_pointer_width = "64")]
+        unsafe { Wow64GetThreadContext(*self.0, ctx as *mut _) }
     }
 
     pub fn get_context(&self, ctx: &mut CONTEXT) -> windows::core::Result<()> {
@@ -382,8 +391,17 @@ impl ThreadHandle {
     }
 
     pub fn set_wow64_context(&self, ctx: &ThreadContext32) -> windows::core::Result<()> {
-        unsafe { Wow64SetThreadContext(*self.0, ctx) }
-    }
+        #[cfg(target_pointer_width = "32")]
+        {
+            return Err(windows::core::Error::new(
+                windows::core::HRESULT(0x80004001u32 as i32), // E_NOTIMPL: "Not implemented"
+                "WOW64 context functions are not supported on 32-bit builds",
+            ));
+        }
+    
+        #[cfg(target_pointer_width = "64")]
+        unsafe { Wow64SetThreadContext(*self.0, ctx as *const _) }
+    }    
 
     /// Suspend, SetThreadContext and Resume
     pub fn suspend_set_context(&self, context: &CONTEXT) -> windows::core::Result<()> {

@@ -1,6 +1,5 @@
 #![doc = include_str!("../README.md")]
 #![doc(html_logo_url = "https://avatars.githubusercontent.com/u/61437564?s=200&v=4")]
-#![feature(lazy_cell)]
 #![feature(trait_alias)]
 #![feature(ptr_metadata)]
 #![feature(min_specialization)]

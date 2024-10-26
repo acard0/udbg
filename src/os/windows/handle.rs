@@ -25,7 +25,7 @@ impl Handle {
     }
 
     pub fn is_null(&self) -> bool {
-        self.0 .0 == 0
+        self.0 .0 == std::ptr::null_mut()
     }
 
     pub fn as_windows_handle(&self) -> HANDLE {

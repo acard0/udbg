@@ -104,29 +104,29 @@ impl Future for AsyncEvent {
 
 #[derive(Clone, Display)]
 pub enum UEvent {
-    #[display(fmt = "InitBp")]
+    #[display("InitBp")]
     InitBp,
-    #[display(fmt = "Step")]
+    #[display("Step")]
     Step,
     #[display(
-        fmt = "Bp {{ address={:x} type={:?} }}",
+        "Bp {{ address={:?} type={:?} }}",
         "_0.address()",
         "_0.get_type()"
     )]
     Breakpoint(Arc<dyn UDbgBreakpoint>),
-    #[display(fmt = "ThreadCreate({_0})")]
+    #[display("ThreadCreate({_0})")]
     ThreadCreate(tid_t),
-    #[display(fmt = "ThreadExit({_0})")]
+    #[display("ThreadExit({_0})")]
     ThreadExit(u32),
-    #[display(fmt = "ModuleLoad({:x?})", "_0.data()")]
+    #[display("ModuleLoad({:x?})", "_0.data()")]
     ModuleLoad(Arc<dyn UDbgModule>),
-    #[display(fmt = "ModuleUnload({:x?})", "_0.data()")]
+    #[display("ModuleUnload({:x?})", "_0.data()")]
     ModuleUnload(Arc<dyn UDbgModule>),
-    #[display(fmt = "ProcessCreate")]
+    #[display("ProcessCreate")]
     ProcessCreate,
-    #[display(fmt = "ProcessExit({_0})")]
+    #[display("ProcessExit({_0})")]
     ProcessExit(u32),
-    #[display(fmt = "Exception {{ first: {first}, code: 0x{code:x} }}")]
+    #[display("Exception {{ first: {first}, code: 0x{code:x} }}")]
     Exception { first: bool, code: i32 },
 }
 
